@@ -9,28 +9,71 @@ const experiences = [
         id: 1,
         role: "Staff Engineer",
         company: "247.ai",
-        period: "Jan 2024 - Present",
-        description: "Leading product modernization and scalable system design for high-traffic distributed applications.",
-        metrics: ["Product Modernization", "Scalable System Design"],
+        period: "06/2025 – Present",
+        description: "Own technical strategy and architecture for product modernization and scalable system design.",
+        metrics: [
+            "Mentor engineers across teams in distributed systems",
+            "Define and enforce engineering standards",
+            "CI/CD pipelines and observability best practices",
+            "Champion developer excellence via code reviews"
+        ],
         color: "cyan",
     },
     {
         id: 2,
-        role: "Senior Software Engineer",
-        company: "Centilytics",
-        period: "Previous",
-        description: "Architected core infrastructure components and optimized cloud cost management algorithms.",
-        metrics: ["Reduced latency by 70%", "Saved $500K+ annually"],
-        color: "violet",
+        role: "Software Development Engineer (SDE 3)",
+        company: "247.ai",
+        period: "01/2024 – 06/2025",
+        description: "Architected Customer Insights platform reducing latency by 70% and saving $500K+ annually.",
+        metrics: [
+            "Built real-time data pipelines and dashboards",
+            "Improved backend performance by 40%",
+            "Integrated CI/CD and canary releases",
+            "Led 50+ architecture/code reviews"
+        ],
+        color: "cyan",
     },
     {
         id: 3,
         role: "Assistant Manager",
         company: "Centilytics",
-        period: "Previous",
-        description: "Managed backend development teams and improved system reliability.",
-        metrics: ["Improved backend performance by 40%", "Team Leadership"],
-        color: "cyan",
+        period: "10/2021 – 01/2024",
+        description: "Spearheaded modular architecture adoption across 50+ engineers, improving efficiency by ~25%.",
+        metrics: [
+            "Designed core systems (ETL, API Gateway)",
+            "Platform SLA to 99.9%",
+            "Delivered IndreKa MVP",
+            "Established CI gates and review culture"
+        ],
+        color: "violet",
+    },
+    {
+        id: 4,
+        role: "Senior Software Engineer",
+        company: "Centilytics",
+        period: "10/2020 – 10/2021",
+        description: "Rebuilt Angular frontend, improving render speed by 2x and reducing Time to Interactive (TTI) by 60%.",
+        metrics: [
+            "Implemented RSocket-based real-time dashboard",
+            "Developed secure internal access control",
+            "Automated QA tools",
+            "Led cross-functional collaborations"
+        ],
+        color: "violet",
+    },
+    {
+        id: 5,
+        role: "Software Engineer",
+        company: "Centilytics",
+        period: "07/2018 – 10/2020",
+        description: "Built 20+ Angular modules and backend services for cloud inventory and compliance.",
+        metrics: [
+            "Automated AWS/Azure pipelines",
+            "Reduced latency by 45%",
+            "Integrated 10+ external APIs",
+            "Mentored new hires"
+        ],
+        color: "violet",
     },
 ];
 
@@ -111,15 +154,15 @@ function TimelineItem({ experience, index }: { experience: any; index: number })
                         {experience.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-col gap-1">
                         {experience.metrics.map((metric: string, i: number) => (
-                            <span
+                            <div
                                 key={i}
-                                className="text-xs font-mono px-2 py-1 rounded bg-slate-800/50 text-slate-300 border border-slate-700/50 flex items-center gap-1"
+                                className="text-xs text-slate-400 flex items-center gap-2"
                             >
-                                <ChevronRight className="w-3 h-3 text-cyan-500" />
-                                {metric}
-                            </span>
+                                <ChevronRight className="w-3 h-3 text-cyan-500 flex-shrink-0" />
+                                <span>{metric}</span>
+                            </div>
                         ))}
                     </div>
                 </div>

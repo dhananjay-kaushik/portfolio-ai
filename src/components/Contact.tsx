@@ -19,7 +19,7 @@ export default function Contact() {
     };
 
     return (
-        <section className="py-24 relative bg-slate-950 overflow-hidden">
+        <section id="contact" className="py-24 relative bg-slate-950 overflow-hidden">
             <div className="container mx-auto px-6 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -48,6 +48,15 @@ export default function Contact() {
                                 <span className="text-green-400">➜</span> <span className="text-cyan-400">~</span> initialize_contact_protocol.sh
                                 <br />
                                 <span className="text-slate-500">Executing handshake sequence...</span>
+                                <br />
+                                <span className="text-slate-600">{">"} Contact me directly at </span>
+                                <a
+                                    href="mailto:dhananjaykaushik96@gmail.com"
+                                    className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer transition-colors"
+                                >
+                                    dhananjaykaushik96@gmail.com
+                                </a>
+                                <span className="text-slate-600"> or fill the form below</span>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-4">
@@ -59,7 +68,7 @@ export default function Contact() {
                                             type="text"
                                             value={formState.name}
                                             onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                                            className="bg-transparent border-none focus:ring-0 text-slate-200 w-full placeholder-slate-700"
+                                            className="bg-transparent border-none focus:ring-0 focus:outline-none text-slate-200 w-full placeholder-slate-700"
                                             placeholder="Enter your name"
                                             required
                                         />
@@ -74,7 +83,7 @@ export default function Contact() {
                                             type="email"
                                             value={formState.email}
                                             onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                                            className="bg-transparent border-none focus:ring-0 text-slate-200 w-full placeholder-slate-700"
+                                            className="bg-transparent border-none focus:ring-0 focus:outline-none text-slate-200 w-full placeholder-slate-700"
                                             placeholder="Enter your email"
                                             required
                                         />
@@ -83,12 +92,12 @@ export default function Contact() {
 
                                 <div className="group">
                                     <label className="block text-slate-500 mb-1 text-xs">MESSAGE</label>
-                                    <div className="flex items-start gap-2">
-                                        <span className="text-green-400 mt-1">❯</span>
+                                    <div className="flex gap-2">
+                                        <span className="text-green-400">❯</span>
                                         <textarea
                                             value={formState.message}
                                             onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                                            className="bg-transparent border-none focus:ring-0 text-slate-200 w-full h-32 resize-none placeholder-slate-700"
+                                            className="bg-transparent border-none focus:ring-0 focus:outline-none text-slate-200 w-full h-32 resize-none placeholder-slate-700"
                                             placeholder="Type your message..."
                                             required
                                         />
@@ -97,7 +106,7 @@ export default function Contact() {
 
                                 <button
                                     type="submit"
-                                    className="mt-4 px-6 py-2 bg-green-500/10 text-green-400 border border-green-500/30 rounded hover:bg-green-500/20 transition-colors flex items-center gap-2 group w-full sm:w-auto justify-center"
+                                    className="mt-4 px-6 py-2 bg-green-500/10 text-green-400 border border-green-500/30 rounded hover:bg-green-500/20 transition-colors flex items-center gap-2 group w-full sm:w-auto justify-center cursor-pointer"
                                 >
                                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     Transmit Message

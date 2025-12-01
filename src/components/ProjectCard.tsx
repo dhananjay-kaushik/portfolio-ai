@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Layers } from "lucide-react";
-import React, { useRef } from "react";
+import React from "react";
 
 interface Project {
     title: string;
@@ -13,59 +13,13 @@ interface Project {
 }
 
 export default function ProjectCard({ project }: { project: Project }) {
-    const ref = useRef<HTMLDivElement>(null);
-
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseXSpring = useSpring(x);
-    const mouseYSpring = useSpring(y);
-
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!ref.current) return;
-
-        const rect = ref.current.getBoundingClientRect();
-
-        const width = rect.width;
-        const height = rect.height;
-
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
-
-        x.set(xPct);
-        y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
     return (
         <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-                rotateY,
-                rotateX,
-                transformStyle: "preserve-3d",
-            }}
-            className="relative h-full w-full rounded-xl bg-slate-900/50 border border-slate-800 p-8 group"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+            className="relative h-full w-full min-w-[350px] rounded-xl bg-slate-900/50 border border-slate-800 p-8 group"
         >
-            <div
-                style={{
-                    transform: "translateZ(75px)",
-                    transformStyle: "preserve-3d",
-                }}
-                className="relative z-10 flex flex-col h-full"
-            >
+            <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between mb-4">
                     <div className={`p-3 rounded-lg ${project.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-400' : 'bg-violet-500/10 text-violet-400'}`}>
                         <Layers className="w-6 h-6" />
@@ -85,10 +39,10 @@ export default function ProjectCard({ project }: { project: Project }) {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.tech.map((t) => (
+                    {project.tech.map((t, i) => (
                         <span
-                            key={t}
-                            className="text-xs font-mono px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700"
+                            key={`${t}-${i}`}
+                            className="text-xs font-mono px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 whitespace-nowrap"
                         >
                             {t}
                         </span>
