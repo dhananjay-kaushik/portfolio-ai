@@ -8,7 +8,7 @@ export default function Hero() {
     return (
         <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-950">
 
-            <div className="relative z-10 container mx-auto px-6">
+            <div className="relative z-10 container mx-auto px-6 lg:pl-20">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -28,11 +28,11 @@ export default function Hero() {
                             I'm Dhananjay Kaushik
                         </h1>
                         <p className="text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed">
+                            <span className="font-bold text-cyan-400">Designer, Developer and Educator.</span>
+                            <br />
                             Staff Engineer building scalable web apps & distributed systems.
                             <br />
                             Tech Junkie always looking for something to learn.
-                            <br />
-                            <span className="font-bold text-cyan-400">Designer, Developer and Educator.</span>
                         </p>
                     </motion.div>
 

@@ -29,6 +29,13 @@ interface Comet {
   opacity: number;
 }
 
+interface Constellation {
+  stars: { x: number; y: number; size: number }[];
+  connections: [number, number][];
+  offsetX: number;
+  offsetY: number;
+}
+
 export default function StarBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -51,13 +58,13 @@ export default function StarBackground() {
       initStars();
     };
 
-    // Sun Position (Top Right)
+    // Sun Position (Top Right) - More realistic size
     const sun = {
-      x: width * 0.9, // 90% to the right
-      y: height * 0.15, // 15% from top
-      radius: 80,
+      x: width * 0.9,
+      y: height * 0.15,
+      radius: 50, // Smaller, more realistic
       color: "#FDB813",
-      glowColor: "rgba(253, 184, 19, 0.4)",
+      glowColor: "rgba(253, 184, 19, 0.3)",
     };
 
     // Stars
@@ -76,13 +83,76 @@ export default function StarBackground() {
       }
     };
 
-    // Planets
+    // Constellations - Multiple patterns, randomly selected
+    const constellationPatterns = [
+      {
+        // Big Dipper
+        name: "Big Dipper",
+        stars: [
+          { x: 0, y: 0, size: 2 },
+          { x: 40, y: 10, size: 1.8 },
+          { x: 80, y: 5, size: 2.2 },
+          { x: 120, y: 15, size: 1.5 },
+          { x: 140, y: 50, size: 2 },
+          { x: 100, y: 80, size: 1.8 },
+          { x: 60, y: 75, size: 2 },
+        ],
+        connections: [
+          [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]
+        ] as [number, number][],
+      },
+      {
+        // Orion's Belt and surrounding stars
+        name: "Orion",
+        stars: [
+          { x: 50, y: 0, size: 2.2 },      // Betelgeuse
+          { x: 30, y: 40, size: 1.5 },     // Belt star 1
+          { x: 50, y: 45, size: 1.8 },     // Belt star 2
+          { x: 70, y: 50, size: 1.5 },     // Belt star 3
+          { x: 50, y: 90, size: 2 },       // Rigel
+          { x: 10, y: 20, size: 1.6 },     // Shoulder
+          { x: 90, y: 25, size: 1.6 },     // Shoulder
+        ],
+        connections: [
+          [5, 0], [0, 6], [5, 1], [1, 2], [2, 3], [6, 3], [1, 4], [3, 4]
+        ] as [number, number][],
+      },
+      {
+        // Cassiopeia (W shape)
+        name: "Cassiopeia",
+        stars: [
+          { x: 0, y: 40, size: 2 },
+          { x: 30, y: 10, size: 1.8 },
+          { x: 60, y: 35, size: 2.2 },
+          { x: 90, y: 5, size: 1.8 },
+          { x: 120, y: 30, size: 2 },
+        ],
+        connections: [
+          [0, 1], [1, 2], [2, 3], [3, 4]
+        ] as [number, number][],
+      },
+    ];
+
+    // Randomly select a constellation pattern
+    const selectedPattern = constellationPatterns[Math.floor(Math.random() * constellationPatterns.length)];
+
+    const constellation: Constellation = {
+      stars: selectedPattern.stars,
+      connections: selectedPattern.connections,
+      // Random position (avoiding edges and sun area)
+      offsetX: Math.random() * (width * 0.5) + width * 0.05,
+      offsetY: Math.random() * (height * 0.5) + height * 0.25,
+    };
+
+    // Planets - 7 planets with larger, more realistic orbits
     const planets: Planet[] = [
-      { x: 0, y: 0, radius: 8, color: "#4FD0E9", orbitRadius: 200, angle: 0, speed: 0.002 }, // Cyan
-      { x: 0, y: 0, radius: 14, color: "#A78BFA", orbitRadius: 350, angle: 2, speed: 0.0015 }, // Violet
-      { x: 0, y: 0, radius: 10, color: "#F472B6", orbitRadius: 500, angle: 4, speed: 0.001 }, // Pink
-      { x: 0, y: 0, radius: 18, color: "#34D399", orbitRadius: 700, angle: 1, speed: 0.0008 }, // Emerald
-      { x: 0, y: 0, radius: 12, color: "#FBBF24", orbitRadius: 900, angle: 3, speed: 0.0005 }, // Amber
+      { x: 0, y: 0, radius: 6, color: "#8B7355", orbitRadius: 300, angle: 0, speed: 0.003 }, // Mercury (brown)
+      { x: 0, y: 0, radius: 9, color: "#FDB813", orbitRadius: 450, angle: 1.2, speed: 0.0024 }, // Venus (golden)
+      { x: 0, y: 0, radius: 10, color: "#4FD0E9", orbitRadius: 600, angle: 2.4, speed: 0.002 }, // Earth (cyan)
+      { x: 0, y: 0, radius: 7, color: "#F87171", orbitRadius: 800, angle: 3.6, speed: 0.0016 }, // Mars (red)
+      { x: 0, y: 0, radius: 20, color: "#D4A574", orbitRadius: 1000, angle: 4.8, speed: 0.0012 }, // Jupiter (tan)
+      { x: 0, y: 0, radius: 18, color: "#FBBF24", orbitRadius: 1200, angle: 0.6, speed: 0.001 }, // Saturn (amber)
+      { x: 0, y: 0, radius: 12, color: "#A78BFA", orbitRadius: 1400, angle: 1.8, speed: 0.0008 }, // Uranus (violet)
     ];
 
     // Comet
@@ -150,6 +220,40 @@ export default function StarBackground() {
         ctx.fill();
       });
       ctx.globalAlpha = 1;
+    };
+
+    const drawConstellation = () => {
+      // Draw connections
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+      ctx.lineWidth = 1;
+      constellation.connections.forEach(([start, end]) => {
+        const startStar = constellation.stars[start];
+        const endStar = constellation.stars[end];
+        ctx.beginPath();
+        ctx.moveTo(
+          constellation.offsetX + startStar.x,
+          constellation.offsetY + startStar.y
+        );
+        ctx.lineTo(
+          constellation.offsetX + endStar.x,
+          constellation.offsetY + endStar.y
+        );
+        ctx.stroke();
+      });
+
+      // Draw stars
+      ctx.fillStyle = "#FFF";
+      constellation.stars.forEach((star) => {
+        ctx.beginPath();
+        ctx.arc(
+          constellation.offsetX + star.x,
+          constellation.offsetY + star.y,
+          star.size,
+          0,
+          Math.PI * 2
+        );
+        ctx.fill();
+      });
     };
 
     const drawPlanets = () => {
@@ -239,8 +343,9 @@ export default function StarBackground() {
       ctx.fillRect(0, 0, width, height);
 
       drawStars();
+      drawConstellation();
       drawSun();
-      drawPlanets(); // Draw planets
+      drawPlanets();
       drawComet();
 
       animationFrameId = requestAnimationFrame(animate);

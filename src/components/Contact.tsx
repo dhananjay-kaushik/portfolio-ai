@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Terminal, Send } from "lucide-react";
 import { useState } from "react";
+import { contactConfig } from "@/config/contact";
 
 export default function Contact() {
     const [formState, setFormState] = useState({
@@ -51,10 +52,10 @@ export default function Contact() {
                                 <br />
                                 <span className="text-slate-600">{">"} Contact me directly at </span>
                                 <a
-                                    href="mailto:dhananjaykaushik96@gmail.com"
+                                    href={`mailto:${contactConfig.email}`}
                                     className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer transition-colors"
                                 >
-                                    dhananjaykaushik96@gmail.com
+                                    {contactConfig.email}
                                 </a>
                                 <span className="text-slate-600"> or fill the form below</span>
                             </div>
