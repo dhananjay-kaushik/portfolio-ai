@@ -108,7 +108,7 @@ function SkillCategory({ category, skills, index }: { category: string; skills: 
             </div>
 
             {/* Skills Pills */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
                 {skills.map((skill, skillIndex) => (
                     <SkillPill key={skill} skill={skill} index={skillIndex} />
                 ))}
@@ -128,8 +128,8 @@ function SkillPill({ skill, index }: { skill: string; index: number }) {
             className="group relative cursor-pointer"
         >
             {/* Pill Content */}
-            <div className="relative px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 group-hover:border-slate-600/70 group-hover:bg-slate-900/90 group-hover:shadow-sm group-hover:shadow-slate-700/30">
-                <span className="font-mono text-xs text-slate-200 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:via-blue-400 group-hover:to-violet-400 transition-all duration-300">
+            <div className="relative px-2.5 py-1 rounded-md bg-slate-900/70 border border-slate-700/40 backdrop-blur-sm transition-all duration-300 group-hover:border-slate-600/60 group-hover:bg-slate-900/80 group-hover:shadow-[0_0_8px_rgba(100,116,139,0.15)]">
+                <span className="font-mono text-[12px] text-slate-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:via-blue-400 group-hover:to-violet-400 transition-all duration-300">
                     {skill}
                 </span>
             </div>

@@ -73,7 +73,7 @@ export default function Contact() {
                             </div>
                             <div className="flex-1 text-center text-xs font-mono text-slate-400 flex items-center justify-center gap-2">
                                 <Terminal className="w-3 h-3" />
-                                contact@dhananjay.dev
+                                contact@dhananjay.kaushik
                             </div>
                         </div>
 

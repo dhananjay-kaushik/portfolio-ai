@@ -101,7 +101,7 @@ export default function Timeline() {
 
                 <div className="max-w-4xl mx-auto relative">
                     {/* Vertical Line */}
-                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-700 to-transparent md:-translate-x-1/2" />
+                    <div className="absolute left-2 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-700 to-transparent md:-translate-x-1/2" />
 
                     <div className="space-y-12">
                         {experiences.map((exp, index) => (
@@ -127,7 +127,7 @@ function TimelineItem({ experience, index }: { experience: any; index: number })
                 }`}
         >
             {/* Timeline Dot */}
-            <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-slate-950 border-2 border-cyan-400 z-10 md:-translate-x-1/2 mt-1.5 shadow-[0_0_10px_rgba(34,211,238,0.5)]">
+            <div className="absolute left-2 md:left-1/2 w-4 h-4 rounded-full bg-slate-950 border-2 border-cyan-400 z-10 -translate-x-1/2 mt-1.5 shadow-[0_0_10px_rgba(34,211,238,0.5)]">
                 <div className="absolute inset-0 rounded-full bg-cyan-400/20 animate-ping" />
             </div>
 
