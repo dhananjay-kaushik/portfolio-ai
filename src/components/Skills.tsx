@@ -57,8 +57,8 @@ const skillsData = {
 
 export default function Skills() {
     return (
-        <section className="py-24 relative bg-slate-950 overflow-visible">
-            <div className="container mx-auto px-6 relative z-10">
+        <section id="skills" className="py-24 relative bg-slate-950 overflow-visible">
+            <div className="container mx-auto px-6 lg:pl-20 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ export default function Skills() {
                     className="mb-16 text-center"
                 >
                     <h2 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 inline-block">
-                        Technical Expertise
+                        Skills
                     </h2>
                     <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-violet-500 mx-auto mt-4 rounded-full" />
                 </motion.div>

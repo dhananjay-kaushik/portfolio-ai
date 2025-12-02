@@ -26,8 +26,8 @@ const projects = [
 
 export default function Projects() {
     return (
-        <section className="py-24 relative bg-slate-950 overflow-hidden">
-            <div className="container mx-auto px-6 relative z-10">
+        <section id="projects" className="py-24 relative bg-slate-950 overflow-hidden">
+            <div className="container mx-auto px-6 lg:pl-20 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
