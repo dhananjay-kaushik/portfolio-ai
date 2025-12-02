@@ -66,7 +66,7 @@ export default function Skills() {
                     transition={{ duration: 0.6 }}
                     className="mb-16 text-center"
                 >
-                    <h2 className="text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 inline-block">
+                    <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-100 inline-block">
                         Skills
                     </h2>
                     <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-violet-500 mx-auto mt-4 rounded-full" />
@@ -102,7 +102,7 @@ function SkillCategory({ category, skills, index }: { category: string; skills: 
         >
             {/* Category Header */}
             <div className="mb-6">
-                <h3 className="text-2xl md:text-3xl font-display font-semibold text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-slate-300 to-slate-400 inline-block">
+                <h3 className="text-2xl md:text-3xl font-display font-semibold text-slate-200 inline-block">
                     {category}
                 </h3>
             </div>

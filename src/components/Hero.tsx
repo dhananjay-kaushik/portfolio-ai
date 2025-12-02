@@ -32,7 +32,7 @@ export default function Hero() {
                         <span className="text-xl md:text-2xl font-mono text-cyan-400 mb-4">
                             Hello
                         </span>
-                        <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-cyan-100 to-slate-100 text-glow mb-6 break-words max-w-full">
+                        <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-cyan-100 to-slate-100 mb-6 break-words max-w-full">
                             I'm Dhananjay Kaushik
                         </h1>
                         <p className="text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed">
