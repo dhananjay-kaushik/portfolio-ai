@@ -28,8 +28,8 @@ export default function Navigation() {
                 });
             },
             {
-                threshold: 0.5, // Trigger when 50% of the section is visible
-                rootMargin: "-10% 0px -10% 0px" // Adjust detection area
+                threshold: 0,
+                rootMargin: "-45% 0px -45% 0px" // Trigger when section crosses the middle of the viewport
             }
         );
 

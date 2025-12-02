@@ -8,18 +8,21 @@ const projects = [
         title: "Customer Insights Platform",
         description: "Real-time analytics engine processing millions of events daily. Reduced query latency by 70% and saved $500K/yr in infrastructure costs through optimized data partitioning.",
         tech: ["SpringBoot", "FastAPI", "PostgreSQL", "Angular", "GCP", "Docker", "Jenkins"],
+        link: "http://247ci-butterfly-prd.cloud.247-inc.net/interactions?clientid=bjs&accountid=bjs",
         color: "cyan" as const,
     },
     {
         title: "Indreka",
         description: "Unified Cloud Collaboration Platform featuring a complex marketplace orchestration engine. Built scalable microservices architecture handling high-concurrency transactions.",
         tech: ["React.js", "SpringBoot", "AWS", "Docker", "K8S", "PostgreSQL"],
+        link: "https://zarthi.com/",
         color: "violet" as const,
     },
     {
         title: "Atlas (Centilytics)",
         description: "Multi-cloud management & compliance automation platform. Implemented automated remediation workflows and real-time cost anomaly detection.",
         tech: ["Angular", "SpringBoot", "AWS", "Docker", "K8S", "BigQuery", "DynamoDB"],
+        link: "https://atlas.centilytics.com/",
         color: "cyan" as const,
     },
 ];

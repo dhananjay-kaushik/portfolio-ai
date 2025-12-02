@@ -18,8 +18,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dhananjay Kaushik | Staff Engineer",
-  description: "Architecting Resilient Systems. Staff Engineer building scalable web apps & distributed systems.",
+  title: "Dhananjay Kaushik | Staff Engineer | Architecting Resilient Systems",
+  description: "A curiosity-driven developer who builds, designs, and shares knowledge — shaping high-quality systems through problem-solving and technical leadership.",
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({

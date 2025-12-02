@@ -38,9 +38,7 @@ export default function Hero() {
                         <p className="text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed">
                             <span className="font-bold text-cyan-400">Designer, Developer and Educator.</span>
                             <br />
-                            Staff Engineer building scalable web apps & distributed systems.
-                            <br />
-                            Tech Junkie always looking for something to learn.
+                            A curiosity-driven developer who builds, designs, and shares knowledge — shaping high-quality systems through problem-solving and technical leadership.
                         </p>
                     </motion.div>
 

@@ -171,8 +171,8 @@ export default function Contact() {
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         className={`mt-4 p-3 rounded border flex items-center gap-2 ${status === "success"
-                                                ? "bg-green-500/10 border-green-500/30 text-green-400"
-                                                : "bg-red-500/10 border-red-500/30 text-red-400"
+                                            ? "bg-green-500/10 border-green-500/30 text-green-400"
+                                            : "bg-red-500/10 border-red-500/30 text-red-400"
                                             }`}
                                     >
                                         {status === "success" ? (
@@ -187,8 +187,27 @@ export default function Contact() {
                         </div>
                     </div>
 
-                    <footer className="mt-12 text-center text-slate-600 text-sm font-mono">
-                        <p>Crafted with Next.js by Dhananjay Kaushik.</p>
+                    <footer className="mt-12 text-center">
+                        <div className="flex items-center justify-center gap-2 text-sm font-mono">
+                            <span className="text-slate-600">Crafted with</span>
+                            <motion.span
+                                animate={{
+                                    scale: [1, 1.2, 1],
+                                }}
+                                transition={{
+                                    duration: 1.5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                }}
+                                className="text-red-500"
+                            >
+                                ❤️
+                            </motion.span>
+                            <span className="text-slate-600">by</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500 font-bold">
+                                Dhananjay Kaushik
+                            </span>
+                        </div>
                     </footer>
                 </motion.div>
             </div>

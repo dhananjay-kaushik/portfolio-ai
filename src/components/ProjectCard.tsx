@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github, Layers } from "lucide-react";
+import { ArrowUpRight, Layers } from "lucide-react";
 import React from "react";
 
 interface Project {
@@ -25,8 +25,11 @@ export default function ProjectCard({ project }: { project: Project }) {
                         <Layers className="w-6 h-6" />
                     </div>
                     <div className="flex gap-4">
-                        <Github className="w-5 h-5 text-slate-500 hover:text-slate-200 cursor-pointer transition-colors" />
-                        <ArrowUpRight className="w-5 h-5 text-slate-500 hover:text-slate-200 cursor-pointer transition-colors" />
+                        {project.link && (
+                            <a href={project.link} target="_blank" rel="noopener noreferrer">
+                                <ArrowUpRight className="w-5 h-5 text-slate-500 hover:text-slate-200 cursor-pointer transition-colors" />
+                            </a>
+                        )}
                     </div>
                 </div>
 
