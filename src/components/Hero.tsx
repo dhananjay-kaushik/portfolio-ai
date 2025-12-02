@@ -32,7 +32,7 @@ export default function Hero() {
                         <span className="text-xl md:text-2xl font-mono text-cyan-400 mb-4">
                             Hello
                         </span>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-cyan-100 to-slate-100 text-glow mb-6">
+                        <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-cyan-100 to-slate-100 text-glow mb-6 break-words max-w-full">
                             I'm Dhananjay Kaushik
                         </h1>
                         <p className="text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed">
@@ -67,15 +67,15 @@ export default function Hero() {
                 </motion.div>
 
                 {/* Coding Person Visual - Now in flow */}
-                <div className="lg:w-1/2 relative z-10 hidden lg:flex items-center justify-center">
+                <div className="absolute -bottom-[230px] -right-[60px] w-[280px] h-[400px] max-[580px]:h-[340px] opacity-90 lg:opacity-100 lg:static lg:w-1/2 lg:h-auto lg:flex items-center justify-center z-0 lg:z-10 pointer-events-none lg:pointer-events-auto">
                     <motion.div
                         style={{ y: yImage }}
                         initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 1, duration: 1 }}
-                        className="relative left-12 xl:left-24 pointer-events-none opacity-50 lg:opacity-100"
+                        className="relative lg:left-12 xl:left-24 w-full h-full lg:w-auto lg:h-auto"
                     >
-                        <div className="relative w-[700px] h-[700px] xl:w-[1000px] xl:h-[1000px] pointer-events-auto">
+                        <div className="relative w-full h-full lg:w-[700px] lg:h-[700px] xl:w-[1000px] xl:h-[1000px]">
                             {/* Music Notes Animation - Near Headphones - Only show when music is playing */}
                             {isPlaying && (
                                 <div className="absolute top-[25%] left-[20%] z-30 flex gap-2">
@@ -98,14 +98,15 @@ export default function Hero() {
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                width="40"
-                                                height="40"
+                                                width="24"
+                                                height="24"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
                                                 stroke="currentColor"
                                                 strokeWidth="2"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
+                                                className="lg:w-10 lg:h-10"
                                             >
                                                 <path d="M9 18V5l12-2v13" />
                                                 <circle cx="6" cy="18" r="3" />

@@ -37,9 +37,9 @@ export default function SocialLinks() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="fixed z-50 transition-all duration-300 lg:left-8 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto w-full bottom-0 left-0 bg-slate-950/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none border-t border-slate-800 lg:border-none py-4 lg:py-0"
+            className="fixed z-50 transition-all duration-300 lg:left-8 lg:top-1/2 lg:-translate-y-1/2 lg:w-auto w-full max-w-full bottom-0 left-0 bg-slate-950/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none border-t border-slate-800 lg:border-none py-4 lg:py-0 overflow-hidden"
         >
-            <div className="flex lg:flex-col flex-row items-center justify-center lg:justify-start gap-6">
+            <div className="flex lg:flex-col flex-row items-center justify-center lg:justify-start gap-6 px-4 lg:px-0">
                 {/* Decorative line - Top */}
                 <motion.div
                     initial={{ scaleY: 0 }}

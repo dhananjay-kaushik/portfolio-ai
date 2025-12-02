@@ -57,7 +57,7 @@ const skillsData = {
 
 export default function Skills() {
     return (
-        <section id="skills" className="py-24 relative bg-slate-950 overflow-visible">
+        <section id="skills" className="py-24 relative bg-slate-950 overflow-hidden">
             <div className="container mx-auto px-6 lg:pl-20 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -128,8 +128,8 @@ function SkillPill({ skill, index }: { skill: string; index: number }) {
             className="group relative cursor-pointer"
         >
             {/* Pill Content */}
-            <div className="relative px-4 py-2.5 rounded-lg bg-slate-900/80 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 group-hover:border-slate-600/70 group-hover:bg-slate-900/90 group-hover:shadow-sm group-hover:shadow-slate-700/30">
-                <span className="font-mono text-sm text-slate-200 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:via-blue-400 group-hover:to-violet-400 transition-all duration-300">
+            <div className="relative px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 group-hover:border-slate-600/70 group-hover:bg-slate-900/90 group-hover:shadow-sm group-hover:shadow-slate-700/30">
+                <span className="font-mono text-xs text-slate-200 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:via-blue-400 group-hover:to-violet-400 transition-all duration-300">
                     {skill}
                 </span>
             </div>

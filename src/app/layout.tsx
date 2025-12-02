@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-slate-950 text-slate-50 selection:bg-cyan-500/30 selection:text-cyan-200`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-slate-950 text-slate-50 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden`}
       >
         {children}
       </body>

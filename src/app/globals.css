@@ -42,6 +42,15 @@
     @apply border border-cyan-400/30;
     box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 /* Global button cursor */
@@ -53,6 +62,7 @@ a,
 
 body {
   @apply bg-slate-950 text-slate-50 overflow-x-hidden;
+  min-width: 380px;
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'%3E%3Ccircle cx='16' cy='16' r='8' stroke='%2394a3b8' stroke-width='1.5' fill='none' opacity='0.4'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%2394a3b8'/%3E%3Cpath d='M16 8 L16 10 M16 22 L16 24 M8 16 L10 16 M22 16 L24 16' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") 16 16, auto;
 }
 

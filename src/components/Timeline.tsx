@@ -119,10 +119,10 @@ function TimelineItem({ experience, index }: { experience: any; index: number })
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             className={`relative flex flex-col md:flex-row gap-8 ${isEven ? "md:flex-row-reverse" : ""
                 }`}
         >
@@ -133,7 +133,7 @@ function TimelineItem({ experience, index }: { experience: any; index: number })
 
             {/* Content */}
             <div className="ml-8 md:ml-0 md:w-1/2 md:px-8">
-                <div className="glass-panel p-6 rounded-xl hover:border-cyan-400/30 transition-colors group">
+                <div className="glass-panel p-4 md:p-6 rounded-xl hover:border-cyan-400/30 transition-colors group">
                     <div className="flex items-center justify-between mb-2">
                         <span className={`text-sm font-mono ${experience.color === 'cyan' ? 'text-cyan-400' : 'text-violet-400'}`}>
                             {experience.period}

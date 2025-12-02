@@ -17,7 +17,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         <motion.div
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
-            className="relative h-full w-full min-w-[350px] rounded-xl bg-slate-900/50 border border-slate-800 p-8 group"
+            className="relative h-full w-full rounded-xl bg-slate-900/50 border border-slate-800 p-6 md:p-8 group"
         >
             <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between mb-4">
