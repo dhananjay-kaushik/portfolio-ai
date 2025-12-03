@@ -21,7 +21,13 @@ export const metadata: Metadata = {
   title: "Dhananjay Kaushik | Staff Engineer | Architecting Resilient Systems",
   description: "A curiosity-driven developer who builds, designs, and shares knowledge — shaping high-quality systems through problem-solving and technical leadership.",
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon.png', sizes: '64x64', type: 'image/png' },
+    ],
+    apple: '/favicon.png',
+    shortcut: '/favicon.png',
   },
 };
 
