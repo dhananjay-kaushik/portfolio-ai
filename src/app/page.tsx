@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import Timeline from "@/components/Timeline";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import LatestWriting from "@/components/LatestWriting";
 import Contact from "@/components/Contact";
 import SocialLinks from "@/components/SocialLinks";
 import Navigation from "@/components/Navigation";
@@ -24,6 +25,7 @@ export default function Home() {
         <div id="projects">
           <Projects />
         </div>
+        <LatestWriting />
         <div id="contact">
           <Contact />
         </div>

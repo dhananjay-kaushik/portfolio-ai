@@ -18,6 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.dhananjay-ai.xyz"),
   title: "Dhananjay Kaushik | Staff Engineer | Architecting Resilient Systems",
   description: "A curiosity-driven developer who builds, designs, and shares knowledge — shaping high-quality systems through problem-solving and technical leadership.",
   icons: {

@@ -93,3 +93,35 @@ h6 {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-slate-700;
 }
+
+/* Blog post content (raw HTML from src/content/blogs/*.html) */
+.blog-content {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--color-slate-300, #cbd5e1);
+}
+
+.blog-content p {
+  margin: 1.5rem 0;
+}
+
+.blog-content h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 3rem 0 1.25rem;
+}
+
+.blog-content img {
+  width: 100%;
+  border-radius: 0.75rem;
+  margin: 2.5rem 0;
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.12);
+}
+
+.blog-content a {
+  color: var(--color-cyan-400);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

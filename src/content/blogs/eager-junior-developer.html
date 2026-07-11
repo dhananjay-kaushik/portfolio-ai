@@ -1,0 +1,77 @@
+<img src="/blogs/eager-junior-developer/cover-eager-junior.png" alt="A sleek robot glowing with soft blue light, reading a translucent holographic panel of code with a small amber bug sitting on it unnoticed, a stack of glowing books beside it" />
+
+<p>The pull request was beautiful. Clean names, thoughtful comments, every test green. The kind of diff you approve at 4:55 on a Friday without reading too closely, because the weekend is right there and this one is obviously fine.</p>
+
+<p>It was not fine.</p>
+
+<p>The itch showed up before the reasoning did, which is how it usually works. I looked again at the part that handled two people checking out at the same moment, and it just wasn't there. The handling, I mean. Under real traffic, that code would have charged a customer once, then charged them again on the retry, and greeted each charge like a pleasant surprise.</p>
+
+<p>Here is the part that stuck with me. Whoever wrote it wasn't careless. Whoever wrote it had, in a real sense, read every programming book ever published, seen more code than I will in ten lifetimes, and could explain concurrency to me in clean, patient paragraphs if I asked. It handed me a concurrency bug anyway. With total confidence. With a little smile. Because it has never once been burned by one, and it never will be.</p>
+
+<p>That developer was an AI. And the moment I started treating it as the most eager junior I have ever managed, everything about working with it clicked into place.</p>
+
+<h2>What this thing is actually doing</h2>
+
+<p>Let's kill one myth first, because it's quietly doing a lot of damage.</p>
+
+<p>An AI writing code is not looking up the right answer. There is no vault of correct functions it reaches into and copies. What it's doing is closer to the autocomplete on your phone, except instead of your last few texts it read most of the internet. Given everything written so far, it predicts what usually comes next. It has gotten unnervingly good at this.</p>
+
+<p>Sit with that, because it explains all the rest. The model is built to produce what looks like the usual answer. Not what is true. Most of the time those are the same thing, which is exactly why it feels like magic, and exactly why it will hurt you. The magic and the danger are the same feature wearing two hats.</p>
+
+<p>Here is what that looks like in practice. Ask it for code to retry a failed network call and it will hand you a tidy little retry loop with no backoff. Most of the ten thousand retry loops it learned from probably had one. The ones without look almost identical, and the model grabbed the shape, not the wisdom. So the instant your service starts returning errors, this code does the most enthusiastic thing imaginable. It retries immediately, forever, from every client at once, and turns a small hiccup into a self-inflicted outage. In the trade we call that a retry storm, and it is exactly as fun as it sounds.</p>
+
+<p>The AI is not being reckless. It has simply never watched a retry storm take down the very thing it was retrying against, at night, while someone typed increasingly panicked messages into a channel. It read everything. It understood the shape of everything. It understood the stakes of nothing. If you have ever managed a brilliant intern, you already know this person.</p>
+
+<h2>The senior skill nobody can name</h2>
+
+<p>Quick question that sounds dumb and isn't. What actually makes someone a senior developer?</p>
+
+<p>It isn't typing speed. It isn't holding more syntax in your head. A sharp junior can out-type a senior who is sitting perfectly still, thinking. The real difference is slippery, so we hide it behind soft words. Experience. Instinct. Taste.</p>
+
+<p>Strip the mystique off and it is mostly one thing. A senior looks at code that appears to work and feels a specific dread about the ways it will break that haven't broken yet. The empty list nobody checked for. The two users hitting the same button in the same millisecond. The query that is snappy at a hundred rows and lies down and dies at ten million. That dread is what saved my Friday afternoon. And it did not come from a book. It came from shipping the bug, personally, watching it break something real, and swearing never again. Every scar quietly hardened into a rule.</p>
+
+<p>This is why a senior and a junior reading the exact same AI output are having two different experiences. The junior sees working code and feels relief. The senior sees working code and feels the itch, then starts poking at the parts the model strolled past in that confident tone. The AI says, here is your file upload. The senior is already asking what happens when the file is 4GB, or empty, or lying about what it is, or when the connection drops halfway through.</p>
+
+<img src="/blogs/eager-junior-developer/the-itch.png" alt="The same short function read two ways: a junior sees 'it works,' a senior sees empty-list, concurrency, failure, and scale problems" />
+
+<p>The AI did not remove the need for that itch. It mass-produced the need for it. You used to review code from a handful of humans. Now you review code from a handful of humans plus a machine that generates plausible work faster than all of them combined and never once feels a flicker of doubt about any of it.</p>
+
+<h2>Two weeks chasing the wrong answer</h2>
+
+<p>Years ago, before any of us had an AI to hand the blame to, a customer reported that one of our pages simply froze. Nothing loaded. They would sit on it for ten minutes and get a spinner and nothing else.</p>
+
+<p>The obvious suspect was the backend. It is always the backend. Our manual QA ran every test case and nothing broke. They spun up a machine in the customer's own region and hammered the APIs from there. A little slow, sure, but everything came back in under a couple of minutes. Nothing was actually failing.</p>
+
+<p>So we did the reasonable thing and optimized. Database, routing, the API layer, all of it. Two solid weeks of real work by a team that knew what it was doing. Then the customer came back and said, still frozen.</p>
+
+<p>At that point I stopped guessing and asked to get on a call and just watch them use the thing. They opened a few widgets in compare view, started playing with filters, and drilled down into one of them. That is where it died. And the second I saw the workflow, I knew it had never been the backend at all. The frontend was carrying its filter state wrong on drill-down and tripping over a null key in some JSON it had assumed would always be there. The console was throwing, quietly. The API was not even being called. The loader just spun forever, waiting for a request the code had already crashed out of making.</p>
+
+<p>We pulled a HAR file, reproduced it by following their exact clicks, and shipped the fix the next day. Two weeks of backend optimization. The bug was a null read in a browser.</p>
+
+<img src="/blogs/eager-junior-developer/wrong-answer.png" alt="A crowd of magnifying glasses inspecting a brightly spotlit backend database labeled 'two weeks here,' while a red arrow points away to a dimmed browser window stuck on an infinite spinner with a bug: 'null key, API never called'" />
+
+<p>Here is why that story belongs in this article. For two weeks, an entire competent team confidently produced the plausible answer. Slow page, must be a slow server. That is precisely what an AI would have told you too, in clean paragraphs, with a tidy list of backend optimizations attached and not one of them wrong, exactly. Plausible is what these tools are best at. The thing that finally cracked the case was not more optimization. It was the itch that said the plausible answer is wrong, go watch the actual human do the actual thing.</p>
+
+<h2>Which means you already know how to do this</h2>
+
+<p>Here is the good news, and it's the whole point. People keep asking how senior developers should "work with AI" as if it's some new discipline with a certification and a paywalled course. It isn't. You have been doing it for years. It's called managing a junior, and you already have strong opinions about it.</p>
+
+<p>You don't hand a junior a one-line ticket and wander off, because you know precisely what comes back. You give them the context that lives in your head and never made it into the repo. You review what they produce instead of shipping it on faith. You catch the confident mistake before it reaches a customer, and you do it without making them feel small, because you want a working system, not a highlight reel of your own cleverness. And when they are clearly out of their depth, you stop asking them to try again for the tenth time and you just write the twelve lines yourself.</p>
+
+<p>Every one of those habits maps straight onto the machine. Give it real context and the output gets sharper, same as the junior. Review it with the itch fully switched on, because it will hand you the plausible-wrong thing without blinking. Know when to stop asking it to fix its own mess and take the keyboard back. This is not a new muscle. It is the mentoring muscle, aimed at something faster, more confident, and completely unable to learn a single thing you tell it. Your job title didn't change. The size of the team reporting to you did.</p>
+
+<h2>The part that actually keeps me up</h2>
+
+<p>I have been selling this as good news for senior developers, and for you, right now, it is. But there is a catch folded inside it, and I don't have a clean way out.</p>
+
+<p>That itch, the entire reason you are valuable in this new arrangement, was expensive. You paid for it by being the junior who shipped the bug, watched it take down production, and felt the very specific horror of an incident channel with your name on the commit. The instinct is compressed pain. Nobody sells a weekend course for it, because there is no version of it you can buy.</p>
+
+<p>Now run it forward. A junior today can produce working code all day without ever writing it, and, more to the point, without ever getting burned by it. The AI catches the beginner mistakes, or hides them, or ships them so smoothly that the failure surfaces months later, unhooked from any lesson anyone could learn from. The road that turned juniors into seniors ran directly through making those mistakes and feeling them. If the machine quietly paves that road over, where does the next generation's itch come from?</p>
+
+<img src="/blogs/eager-junior-developer/the-paved-road.png" alt="The path from junior to senior runs through 'ship the bug' and 'get burned'; an AI shortcut skips straight over the getting-burned step that builds the instinct" />
+
+<p>I genuinely don't know, which is why this isn't ending with three tidy bullet points. Maybe seniority just moves up a floor, and the new junior learns to direct and distrust the AI the way we learned to distrust our own terrible first drafts, and a different kind of scar tissue forms. Or maybe we get a generation that can generate oceans of confident code and cannot feel when it's lying, watched over by a shrinking crew of people who learned the old way and are quietly aging out of the room.</p>
+
+<p>For today, the move is simple. Treat the AI like the gifted, eager, slightly dangerous junior it is. Give it context, review it hard, and never ship its work on trust alone. And if you are the actual junior in this story, the single most valuable thing you can do is the exact thing the tool makes easiest to skip. Read the code it gives you until you understand it well enough that you could have written it yourself. That is the entire difference between wielding the tool and being quietly managed by it.</p>
+
+<p>The intern read every book in the library. Somebody still has to remember which pages were wrong.</p>

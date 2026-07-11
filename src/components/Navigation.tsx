@@ -1,7 +1,9 @@
 "use client";
 
-import { Home, User, Briefcase, Code, Mail, Map, Volume2, VolumeX } from "lucide-react";
+import { Home, User, Briefcase, Code, Mail, Map, Volume2, VolumeX, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useMusic } from "@/context/MusicContext";
 
@@ -13,11 +15,17 @@ const navItems = [
     { id: "contact", icon: Mail, label: "Contact" },
 ];
 
+const blogsItem = { href: "/blogs", icon: BookOpen, label: "Writing" };
+
 export default function Navigation() {
     const [activeSection, setActiveSection] = useState("hero");
     const { isPlaying, toggleMusic } = useMusic();
+    const pathname = usePathname();
+    const onHome = pathname === "/";
 
     useEffect(() => {
+        if (!onHome) return;
+
         // Intersection Observer for active section
         const observer = new IntersectionObserver(
             (entries) => {
@@ -40,7 +48,7 @@ export default function Navigation() {
         });
 
         return () => observer.disconnect();
-    }, []);
+    }, [onHome]);
 
 
 
@@ -56,20 +64,49 @@ export default function Navigation() {
     return (
         <div className="fixed top-4 left-2 right-2 md:left-auto md:right-12 md:top-6 z-50 flex justify-center md:justify-end pointer-events-none">
             <div className="flex items-center gap-0.5 md:gap-2 p-1 md:p-2 rounded-full bg-slate-950/50 backdrop-blur-md border border-slate-800/50 max-w-full overflow-x-auto overflow-y-hidden no-scrollbar pointer-events-auto">
-                {navItems.map((item) => (
-                    <button
-                        key={item.id}
-                        onClick={() => scrollToSection(item.id)}
-                        className={`relative p-1.5 md:p-2 transition-colors rounded-full hover:bg-slate-800/50 group ${activeSection === item.id ? "text-cyan-400 bg-slate-800/50" : "text-slate-400 hover:text-cyan-400"
-                            }`}
-                        title={item.label}
-                    >
-                        <item.icon className="w-4 h-4 md:w-5 md:h-5" />
-                        <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono text-cyan-400 bg-slate-900/90 border border-slate-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                            {item.label}
-                        </span>
-                    </button>
-                ))}
+                {navItems.map((item) =>
+                    onHome ? (
+                        <button
+                            key={item.id}
+                            onClick={() => scrollToSection(item.id)}
+                            className={`relative p-1.5 md:p-2 transition-colors rounded-full hover:bg-slate-800/50 group ${activeSection === item.id ? "text-cyan-400 bg-slate-800/50" : "text-slate-400 hover:text-cyan-400"
+                                }`}
+                            title={item.label}
+                        >
+                            <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono text-cyan-400 bg-slate-900/90 border border-slate-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                {item.label}
+                            </span>
+                        </button>
+                    ) : (
+                        <Link
+                            key={item.id}
+                            href={`/#${item.id}`}
+                            className="relative p-1.5 md:p-2 transition-colors rounded-full hover:bg-slate-800/50 group text-slate-400 hover:text-cyan-400"
+                            title={item.label}
+                        >
+                            <item.icon className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono text-cyan-400 bg-slate-900/90 border border-slate-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                {item.label}
+                            </span>
+                        </Link>
+                    )
+                )}
+
+                {/* Divider */}
+                <div className="w-px h-5 md:h-6 bg-slate-800 mx-0.5 md:mx-1"></div>
+
+                <Link
+                    href={blogsItem.href}
+                    className={`relative p-1.5 md:p-2 transition-colors rounded-full hover:bg-slate-800/50 group ${pathname?.startsWith("/blogs") ? "text-cyan-400 bg-slate-800/50" : "text-slate-400 hover:text-cyan-400"
+                        }`}
+                    title={blogsItem.label}
+                >
+                    <blogsItem.icon className="w-4 h-4 md:w-5 md:h-5" />
+                    <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono text-cyan-400 bg-slate-900/90 border border-slate-800 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        {blogsItem.label}
+                    </span>
+                </Link>
 
                 {/* Divider */}
                 <div className="w-px h-5 md:h-6 bg-slate-800 mx-0.5 md:mx-1"></div>
