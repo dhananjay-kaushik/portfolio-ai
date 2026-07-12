@@ -1,0 +1,67 @@
+<img src="/blogs/cant-read-my-own-code/cover-craft-delegation.png" alt="A developer facing a glowing wall of holographic code panels, their reflection a faceless stranger" />
+
+<p>I opened a function in my own repository last month and did not recognize a single line of it. Not the logic, not the variable names, not the reason it existed. My first honest thought was that a teammate had written it and forgotten to tell me.</p>
+
+<p>Then I ran git blame.</p>
+
+<p>It was me. Committed six weeks earlier, my name, my email, a message I clearly typed. And I could not, standing there, have told you what the thing did without reading it top to bottom like a stranger's code. I had shipped it. It worked. It was in production serving real users. And it lived in my brain the way a movie you watched half-asleep lives in your brain, which is to say not at all.</p>
+
+<p>I did not write that code. I approved it. Somewhere in the last year those two things quietly became different verbs, and nobody sat me down to point it out.</p>
+
+<h2>What delegation actually swapped</h2>
+
+<p>Here is the trade that happened, and it happened so smoothly I never noticed the moment it closed.</p>
+
+<p>I used to produce code. I would sit with a blank function, hold the whole problem in my head, and grind it into something that worked. That was slow and often annoying. But the grinding did a second thing I wasn't paying attention to. It carved the problem permanently into me. By the time the code worked, I owned it. I could have rewritten it from scratch on a whiteboard with no notes, because I had, in a real sense, already done exactly that.</p>
+
+<p>Now I describe the problem and read what comes back. I still make real decisions. I reject the bad version, ask for the better one, catch the obvious mistakes. It feels like work, and it is work. But it is a different muscle, and the old one is not being used. I have quietly moved from producing code to recognizing acceptable code, and those feel almost identical right up until the moment they are catastrophically not.</p>
+
+<p>Because recognizing and producing are not the same skill. They are not even close. And we have a word for the gap between them, we just usually apply it to French class.</p>
+
+<h2>The menu you can read but can't order from</h2>
+
+<p>Anyone who has half-learned a language knows this feeling in their body.</p>
+
+<p>You can read the menu. You see <em>poulet</em> and you know it's chicken, you see <em>frites</em> and you're set. Reading is easy. Recognition is easy. Now the waiter asks a follow-up question you didn't script for, and your entire fluency evaporates on the spot. You could recognize the right answer if someone said it. You cannot produce it. The distance between "I understand this when I see it" and "I can generate this from nothing" is the distance between a tourist and a person who actually lives there.</p>
+
+<p>Reading code the AI wrote is recognition. It's the menu. It feels like knowledge because understanding-when-you-see-it genuinely is a kind of knowledge, the comfortable passive kind. But the skill that makes you a developer, the one people pay for, is production. It's ordering dinner, arguing with the landlord, cracking a joke the locals actually laugh at. And production is a muscle that only grows when you produce. Reading a thousand correct answers builds it about as much as watching a thousand pushups builds your chest.</p>
+
+<img src="/blogs/cant-read-my-own-code/recognition-vs-production.png" alt="Left: a figure touching a lit holographic panel with a green check. Right: the same figure reaching into a hollow, empty panel they can't fill" />
+
+<p>Every time you let the tool produce and you merely approve, you get a little better at recognition and no better at production. Multiply that by a year of daily use and you get a very specific, very modern kind of professional. Sharp at spotting wrong answers. Slowly going soft at generating right ones. Completely unaware it's happening, because the paychecks keep clearing and the tickets keep closing.</p>
+
+<h2>Why your brain is thrilled to make this trade</h2>
+
+<p>None of this is a character flaw. Your brain is doing exactly what it evolved to do, which is to conserve effort like it's the last calorie on Earth.</p>
+
+<p>Think about GPS. Before it, you drove somewhere new by building an actual map in your head, streets and turns and landmarks, because you had no choice. After it, you follow a blue line and arrive with no memory of how. You've driven to that one place fifty times and still can't get there without the app, and the reason is not that you're stupid. It's that your brain, offered a way to stop building the map, took the deal instantly and gratefully. Why store the route when the machine stores the route? The map-building muscle went quiet because nothing was asking it to fire.</p>
+
+<img src="/blogs/cant-read-my-own-code/gps-map-fade.png" alt="A figure walking a single glowing route line through a holographic city that dissolves into particles behind them" />
+
+<p>Coding assistants are GPS for the whole job. The blue line is a very good blue line. It usually goes to the right place. And your brain, which has never once valued long-term skill over short-term effort, is delighted to stop building the map. Every "accept" is a tiny vote to let the muscle rest. No single vote matters. The election still gets decided.</p>
+
+<p>The cruel part is that atrophy is invisible while it's happening. A weakening skill and a strong one feel exactly the same on any ordinary day, because ordinary days never test the skill. You only discover the muscle is gone the moment you actually reach for it. Which, in this job, is always the worst possible moment.</p>
+
+<h2>The 2 a.m. test you can't delegate</h2>
+
+<p>Everything is fine until production is on fire and the tool can't help you.</p>
+
+<p>Picture the incident. Something is down, real users, real money bleeding out per minute. The bug is a nasty one, tangled across three systems, the kind where the actual cause is nowhere near the symptom. This is the exact situation you cannot describe to an assistant, because if you could describe the problem cleanly you would already have the answer. Debugging a live incident is precisely the work of not yet knowing what's wrong. It is pure production. It runs entirely on the map in your head.</p>
+
+<p>And the map is thinner than it used to be. Not gone, not for those of us who spent a decade building it before the tools showed up. But thinner. I felt it during a real outage: I went to trace a data flow through a service I had "written" and realized I knew the shape of it only as well as I'd know a house I'd been given a tour of once. I recognized the rooms. I could not have drawn the floor plan. And drawing the floor plan, from memory, under pressure, is the entire job at 2 a.m.</p>
+
+<img src="/blogs/cant-read-my-own-code/the-2am-fire.png" alt="Left, calm blue: a developer coding serenely. Right, red alert: the same developer amid a fire and warning holograms, holding a glitching, breaking map" />
+
+<p>The tool gave me speed on all the easy days and quietly borrowed against the hard one. That's the trade nobody prices, because the invoice doesn't arrive until the emergency, and by then it's not a bill, it's a crater.</p>
+
+<h2>The move is not to quit the tool</h2>
+
+<p>I want to be clear about what I am not saying, because there's a smug little sermon lurking near this topic and I don't want to preach it. I am not telling you to code by hand like it's 2009 to keep your soul pure. That's nostalgia cosplaying as wisdom. The tools are extraordinary and I'd fight you for mine.</p>
+
+<p>The enemy is not delegation. It's <em>unconscious</em> delegation. It's letting the blue line make every decision until the map quietly disappears without your consent.</p>
+
+<p>So the move is to delegate on purpose and keep one lane manual. Pick the code that matters, the core of your system, the parts you'll be debugging at 2 a.m., and actually write those, or at minimum read what the tool produces until you understand it well enough that you could have written it from scratch. Not skim. Understand. Close the tab and see if you can reconstruct the logic. If you can't, you don't own that code, you're just its landlord, and it will betray you the day you need it most. Let the AI have the boilerplate, the glue, the tedious stuff that was never building your map anyway. Guard the part that does.</p>
+
+<p>The itch that makes a senior valuable was expensive to earn and it is even easier to lose than it was to build. It came from producing, from grinding, from owning code down to the bone. A tool that produces for you is a tool that, left unsupervised, will slowly stop you from being the kind of person who can.</p>
+
+<p>I ran git blame and found my own name on code I didn't know. The fix isn't to blame the tool. It's to make sure that the next time I put my name on something, I actually put myself in it too.</p>
