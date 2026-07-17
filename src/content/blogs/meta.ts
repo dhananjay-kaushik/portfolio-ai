@@ -8,6 +8,13 @@ export interface BlogMeta {
 
 export const blogs: BlogMeta[] = [
     {
+        slug: "verification-bottleneck",
+        title: "AI Writes Code in Seconds. Reading It Still Takes You All Day.",
+        subtitle: "We automated the easy half and called it a revolution.",
+        date: "2026-07-17",
+        coverImage: "/blogs/verification-bottleneck/cover-verification-firehose.png",
+    },
+    {
         slug: "ai-assistant-has-root",
         title: "Your AI Assistant Has Root, and a Stranger Just Whispered to It",
         subtitle: "It reads every file you point it at. Including the one the attacker left.",

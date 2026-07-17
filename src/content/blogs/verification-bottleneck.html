@@ -1,0 +1,55 @@
+<img src="/blogs/verification-bottleneck/cover-verification-firehose.png" alt="A firehose of glowing code pouring into a tiny funnel, overflowing at the choke point" />
+
+<p>Everyone measured the wrong half.</p>
+
+<p>The pitch was that AI would make software faster, and it delivered, it made <em>writing</em> faster, gloriously, absurdly faster. A feature that used to eat a day now takes an hour. So the work should be several times lighter now. And somehow it isn't. Somehow a lot of engineers are shipping more code and feeling more tired, not less. Here is the part nobody put on the slide: writing was never the slow part. Understanding whether the code is correct was the slow part, and no one automated that. We aimed a firehose at a funnel and act surprised the funnel is drowning.</p>
+
+<h2>The bottleneck nobody moved</h2>
+
+<p>Every piece of engineering work is really three jobs wearing a trench coat. You <strong>generate</strong> a solution, you <strong>understand</strong> it well enough to trust it, and you <strong>verify</strong> it does the right thing without breaking everything else. Three stages, one after another.</p>
+
+<p>AI obliterated the cost of stage one. Generation used to be most of the visible effort, the typing, the looking things up, the wiring it together, so making it nearly free felt like winning the whole race. But stages two and three, understanding and verifying, did not get cheaper. They cost exactly what they always did, because they run on a human brain reading carefully, and that brain works at the same speed it did in 2015.</p>
+
+<p>There's an old idea from manufacturing that explains what happens next. A production line only goes as fast as its slowest station. Speed up any other station and you have not made the line faster, you have just made the slow station's queue longer. The constraint doesn't vanish when you optimize around it. It just moves, or worse, it stays exactly where it was while everything upstream piles product in front of it. We made generation instant and left verification untouched, so verification is now the whole job, wearing all the pressure that used to be spread across three stages.</p>
+
+<img src="/blogs/verification-bottleneck/verification-pipeline.png" alt="A wide fast pipe of glowing code narrowing hard to a thin valve where one figure stands, a backlog piling up behind it" />
+
+<h2>The restaurant with the magic oven</h2>
+
+<p>Picture a small restaurant. One oven, one chef, one waiter, one person on dishes. Dinners come out at a steady pace and everyone's busy but coping.</p>
+
+<p>Now a vendor sells the chef a magic oven that cooks any dish in ten seconds. Incredible. The kitchen's output should explode. Except the waiter can still only carry so many plates, and the dishwasher can still only wash so fast, and the chef still has to actually look at each dish to make sure it isn't raw in the middle. So what actually happens is a growing stack of cooling plates on the pass, a frantic waiter, and a chef who has become a full-time quality inspector for an oven that never sleeps. The kitchen is not faster. It has a new bottleneck and a very stressed staff. The oven vendor puts out a press release calling it a revolution.</p>
+
+<p>The magic oven is the code generator. The cooling plates are pull requests waiting to be reviewed. And the chef who now does nothing but inspect is you.</p>
+
+<h2>Why reading it is the hard part</h2>
+
+<p>Here's the twist people underestimate: reviewing code you didn't write is genuinely harder than writing it yourself, and AI produces exactly the kind of code that's hardest to review.</p>
+
+<p>When you write something, you build a mental model as you go. You know why each piece is there because you put it there. When you review, you have to reconstruct that model from the outside, reverse-engineering intent from the result, and there's no author sitting next to you to ask. With a human teammate you at least share context, coding conventions, a sense of how they think. With an AI you get none of that. You get code with no author to interrogate, no intent to lean on, and a dangerous new property: it is confidently, fluently, plausibly wrong. Human mistakes often look like mistakes. AI mistakes look like working code that happens to be incorrect, which is the most expensive kind to catch, because your eye slides right over it. (This is the flip side of a problem I wrote about in <a href="https://www.dhananjay-ai.xyz/blogs/cant-read-my-own-code">The Day I Couldn't Read My Own Code</a>: code you didn't produce is code you don't truly hold in your head.)</p>
+
+<p>So the machine hands you more code, faster, and each line of it demands <em>more</em> careful attention than the code you'd have written yourself. The firehose isn't just bigger than the funnel. The water got heavier.</p>
+
+<h2>The metric mirage</h2>
+
+<p>The cruel part is that all the numbers say it's working.</p>
+
+<p>Lines of code shipped: up. Pull requests opened: up. Story points closed, commits per week, the whole dashboard tilts triumphantly upward, because those metrics measure generation, the stage we made free. The number nobody puts on the dashboard, working software that a human actually understands, does not move at anything like the same rate. You are measuring the fast half and quietly ignoring the slow one, then wondering why "10x faster" isn't showing up in shipped, trustworthy product.</p>
+
+<p>It gets stranger. In 2025, the research group METR ran a careful study on experienced open-source developers using modern AI tools on their own repositories. The developers <em>felt</em> faster, they estimated the tools had sped them up by around 20 percent. When METR actually measured the completion times, the developers had been roughly 19 percent <em>slower</em>. Not slower at typing. Slower overall, because the time saved on generation was more than eaten by the time spent reviewing, correcting, and re-prompting the output. The speed was real in the moment and imaginary in the totals. Generation feels like progress. Verification feels like friction. The feeling and the reality had come apart.</p>
+
+<img src="/blogs/verification-bottleneck/verification-treadmill.png" alt="A developer sprinting hard on a glowing treadmill, going nowhere" />
+
+<h2>What actually helps</h2>
+
+<p>If the bottleneck is verification, then the only real wins are the ones that make verification cheaper or generate less stuff that needs it. Everything else is buying more magic ovens for a kitchen that can't plate what it already has.</p>
+
+<p>Keep the diffs small. A 40-line change you can fully hold in your head is worth more than a 400-line one you'll rubber-stamp, because a review you can't actually do is not a review. Point the AI at the verification stage too, not just generation: have it write tests, explain a diff, hunt for edge cases, review its own output with fresh eyes. Lean on the checks that don't run on human attention, types, tests, and assertions catch the plausible-looking wrongness that your tired eyes miss at 5 p.m. And the genuinely counterintuitive move: sometimes generate less. If every accepted suggestion becomes verification debt, the fastest team is often the one that produces a little less and understands all of it, not the one drowning in plausible code nobody has really read.</p>
+
+<img src="/blogs/verification-bottleneck/verification-drowning.png" alt="A lone reviewer at a desk beneath a towering wave of glowing code panels stacking up faster than they can check" />
+
+<h2>The half we skipped</h2>
+
+<p>We took a three-part job, made one part almost free, and declared the whole thing solved. But the part we automated was the part that was already the least of our problems. The hard part, the only part that was ever really hard, was a human being making sure the thing is actually right. That part is still here. It is doing more work than ever, under more pressure than ever, with better tools pointed at everything except it.</p>
+
+<p>Speed at the wrong stage isn't progress. It's just a taller pile at the real one. The revolution was half a revolution, and it was the easy half. The interesting question, the one worth actually working on, is what happens when we finally point all this cleverness at the half we skipped.</p>
