@@ -1,0 +1,71 @@
+<img src="/blogs/benchmark-contamination-answer-key/cover-answer-key.png" alt="A glowing humanoid figure sitting a luminous holographic exam with total confidence, a faint second sheet of answers reflected in its eyes, cinematic deep-space navy scene" />
+
+<p>There was a kid in my school, call him the legend, who scored a perfect mark on a chemistry final and could not have told you the difference between an acid and a base if his life depended on it. The teacher recycled the same exam every year. Same twenty questions, same order. The legend had gotten his hands on last year's paper, memorized which bubble to fill for each number, and walked in like a man who had never once feared a mole calculation.</p>
+
+<p>He did not know chemistry. He knew this specific test. On paper, on the leaderboard the school printed and pinned to the corridor wall, he was indistinguishable from the girl who actually understood chemistry and could have aced any exam you threw at her.</p>
+
+<p>That gap, between knowing the subject and knowing the test, is one of the quietest and most expensive problems in AI right now. Because a startling amount of "our new model beats the state of the art" turns out to be the legend. The model didn't get smarter. It just saw the answer key.</p>
+
+<h2>First, how you're supposed to grade a machine</h2>
+
+<p>Let's back up to how anyone measures whether a model is any good, because the whole trick hides in the setup.</p>
+
+<p>Say you're teaching a model to tell cats from dogs. You collect a hundred thousand labeled photos. The obvious, wrong move is to show it all hundred thousand, then test it on those same photos. Of course it does well. It has seen every single one, with the answer attached. That's not a test. That's asking someone to recite a list they just read back to you.</p>
+
+<p>So the field learned to do something simple and non-negotiable. You split your data into two piles before training starts. The big pile, the training set, is what the model studies. The small pile, the test set, gets locked in a drawer and never shown during learning. Then, and only then, you bring out the test set and see how the model does on photos it has genuinely never laid eyes on.</p>
+
+<p>That locked drawer is the entire point. It's the difference between "can you recognize a dog" and "can you recognize this exact dog from photo number 4,812." The test set is a stand-in for the real world, for all the dogs the model will meet after you ship it. If it does well on data it never saw during training, you have some reason to believe it will do well on the wild, unseen data waiting for it in production.</p>
+
+<img src="/blogs/benchmark-contamination-answer-key/train-test-split.png" alt="A single deck of glowing cards being split into two piles, the larger one open and studied, the smaller one sealed inside a locked translucent vault, deep-space navy background" />
+
+<p>Break that wall between the two piles and every number you produce becomes a lie. Not a dramatic, obvious lie. A quiet, flattering one.</p>
+
+<h2>The wall has a hole in it</h2>
+
+<p>Here is where the modern language models make the old cat-and-dog setup look adorably simple.</p>
+
+<p>When you trained a cat classifier, you knew exactly what was in your training pile, because you assembled it by hand. A large language model does not have a tidy hundred thousand photos. It was trained on a substantial fraction of the public internet. Trillions of words. Nobody, not even the team that built it, can hand you a clean list of every sentence it read.</p>
+
+<p>Now think about where the famous AI benchmarks live. The coding challenges, the math word problems, the reasoning quizzes that every press release brags about beating. They live on the internet. On GitHub, in papers, on forums, in a hundred blog posts where someone worked through the answers step by step. The exact same internet that got hoovered up into the training pile.</p>
+
+<p>So the test set was never locked in a drawer. The drawer was standing open the whole time, and the model wandered through it during training along with everything else. This has a name. It's called data leakage, or benchmark contamination, and it is exactly the school legend's move at industrial scale. When the model then "aces" that benchmark, you genuinely cannot tell whether it reasoned its way there or whether it's just reciting a page it happened to read on the way in.</p>
+
+<p>The honest, uncomfortable version. A benchmark score is supposed to measure understanding. The moment the answers leak into training, it might just be measuring memory. And a machine that read the whole internet has a truly staggering amount of memory.</p>
+
+<h2>The two-line experiment that gives it away</h2>
+
+<p>You don't need to trust me on this. There's a clean way to catch it, and someone did.</p>
+
+<p>Back when GPT-4 came out, an engineer named Horace He ran a beautifully mean little test. He took programming problems from Codeforces, a competitive coding site, and sorted them by date. Problems from before the model's training cutoff, the ones that had been sitting on the public internet for years, versus fresh problems posted after the cutoff, which the model could not possibly have seen.</p>
+
+<p>On the old, pre-cutoff problems, the model was a star. On the easy set, it solved something like ten out of ten. On the new problems, the ones posted after its training data was frozen, it solved zero. Same difficulty. Same kind of problem. Same model. The only thing that changed was whether the answer had been available to memorize.</p>
+
+<p>That is the legend's report card laid bare. Perfect on the exam he'd seen, blank on the equivalent exam he hadn't. And this pattern keeps showing up. In 2024, a team at Scale AI built a fresh set of grade-school math problems, deliberately new, in the same style as a hugely popular public math benchmark. Several models scored noticeably worse on the brand-new problems than on the old public ones, some dropping by double-digit percentages. The models that held steady were the ones that had actually learned the math. The ones that cratered had, to some degree, learned the test.</p>
+
+<img src="/blogs/benchmark-contamination-answer-key/fresh-vs-seen.png" alt="A confident glowing figure standing before a wall of already-solved luminous puzzles behind it, while frozen and dim in front of it sits a single brand-new sealed puzzle it cannot open, cinematic navy scene" />
+
+<p>There's a word for a student who nails the practice exam and bombs the real one. We say they overfit. They didn't learn the general skill, they molded themselves tightly to the specific questions they drilled, right down to the quirks that won't repeat. A model that memorized a benchmark is overfit to that benchmark in the most literal way. It looks brilliant precisely up to the edge of what it saw, and falls off a cliff the moment you step past it.</p>
+
+<h2>Why this is worse than "the leaderboard is a bit off"</h2>
+
+<p>You might be shrugging by now. Benchmarks are inflated, marketing is marketing, water is wet. Knock ten points off every score in your head and move on.</p>
+
+<p>I wish it were that tidy. The real problem isn't that the number is too high. It's that you can't tell, from the outside, which number is honest.</p>
+
+<p>Two models sit at the top of a leaderboard, a hair apart. One genuinely learned to reason through problems it has never seen. The other memorized the answer key to that exact leaderboard and would fall apart on anything new. From where you're standing, holding nothing but the final scores, they look identical. Same podium, same shiny number, same confident press release. The one that actually understands and the one that got lucky with a leaked test are wearing the same medal.</p>
+
+<img src="/blogs/benchmark-contamination-answer-key/black-box-medal.png" alt="An opaque black box on a winner's podium wearing a gleaming gold medal ribbon on the outside, its interior sealed and unknowable behind dark glass, single spotlight, deep-space navy" />
+
+<p>Now put that into a decision you actually make. You're picking a model to sit inside your product, to read your users' support tickets or write code that ships to real customers. You compare the benchmark scores, because what else do you have, and you pick the leader. If that lead came from genuine capability, great. If it came from contamination, you just bought the school legend. He'll be flawless on anything resembling the practice test and quietly useless the first time production hands him a question the internet never wrote down. Which is, of course, most of what production does.</p>
+
+<p>This is the part that keeps the researchers up at night. Not that the models are dumber than the scoreboard claims, though sometimes they are. It's that the scoreboard, the one tool everyone uses to decide which model to trust with real work, can be gamed by the one thing these models are best at in the world. Memorizing text. The measuring instrument and the thing being measured are made of the same stuff, and the wall that's supposed to separate them is full of holes nobody can fully find.</p>
+
+<h2>What honest people are actually doing about it</h2>
+
+<p>None of this means benchmarks are worthless or that everyone reporting a high score is a fraud. Most aren't. It means the good teams now treat contamination as a threat to defend against, not a footnote to ignore.</p>
+
+<p>The cleanest defense is the one Horace He stumbled into. Test on problems that were created after the model's training data was frozen, so leakage is impossible by construction. Some benchmarks now rotate in fresh, private question sets that were never published, exactly the locked drawer the old cat classifier had. Some hide a unique marker string in their test files and later check whether models can complete it, which would only happen if the model had swallowed the test. And the simplest habit of all, the one you can adopt this afternoon, is to stop trusting any single number and go run the model on your own problems, the ones from your codebase and your users, which by definition never leaked because you just wrote them.</p>
+
+<p>That last one is the whole lesson in miniature. The girl who actually understood chemistry didn't care which exam you handed her, because she could handle any of them. The only way to tell her apart from the legend was to give them both a test neither had seen. That is still the only way. Give the model a problem the internet has never solved, and watch what it does when it can't recite.</p>
+
+<p>The leaderboard tells you who scored highest. It was never designed to tell you who actually knows chemistry. And these days, the two are wearing the same gold medal, standing on the same podium, smiling the same confident smile.</p>

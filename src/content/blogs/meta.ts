@@ -8,6 +8,13 @@ export interface BlogMeta {
 
 export const blogs: BlogMeta[] = [
     {
+        slug: "benchmark-contamination-answer-key",
+        title: "The AI That Aced Every Exam by Memorizing the Answer Key",
+        subtitle: "Turns out \"state of the art\" sometimes just means \"saw the test already.\"",
+        date: "2026-07-20",
+        coverImage: "/blogs/benchmark-contamination-answer-key/cover-answer-key.png",
+    },
+    {
         slug: "verification-bottleneck",
         title: "AI Writes Code in Seconds. Reading It Still Takes You All Day.",
         subtitle: "We automated the easy half and called it a revolution.",
