@@ -8,6 +8,13 @@ export interface BlogMeta {
 
 export const blogs: BlogMeta[] = [
     {
+        slug: "slopsquatting",
+        title: "The AI Recommended a Package That Never Existed. Someone Made It Real.",
+        subtitle: "Your assistant invented a dependency. An attacker was already waiting at the address.",
+        date: "2026-07-24",
+        coverImage: "/blogs/slopsquatting/cover-slopsquatting.png",
+    },
+    {
         slug: "benchmark-contamination-answer-key",
         title: "The AI That Aced Every Exam by Memorizing the Answer Key",
         subtitle: "Turns out \"state of the art\" sometimes just means \"saw the test already.\"",

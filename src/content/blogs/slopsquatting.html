@@ -1,0 +1,61 @@
+<img src="/blogs/slopsquatting/cover-slopsquatting.png" alt="A glowing software package crate arriving on a delivery pad in deep space, warm and inviting on the outside, with a faint hidden hook coiled inside it, cornflower blue light and electric cyan accents" />
+
+<p>You asked the AI for a fast way to parse a config file, and it gave you six clean lines. First line: <code>pip install</code> something. The name looked right. It looked like the kind of small, sensible utility that absolutely should exist, the sort of thing you would be mildly annoyed to learn nobody had written yet. So you ran it. It installed without complaint. Your code worked.</p>
+
+<p>Here is the uncomfortable part. Up until a few weeks ago, that package did not exist. The AI made the name up. And in the gap between the model inventing it and you typing it, a stranger noticed, registered that exact name, and put something inside it. You didn't install a library. You installed whatever they felt like shipping, with your permission, on your build server, as root.</p>
+
+<p>That is a real attack. It has a real name now. And the reason it works is the same reason the AI felt so helpful in the first place.</p>
+
+<h2>Why the AI invents a package at all</h2>
+
+<p>Let's clear up one thing, because the whole attack hangs off it.</p>
+
+<p>When an AI recommends a package, it is not searching a registry. It does not have a live index of every real library on PyPI or npm that it checks against before answering. What it is doing is closer to the autocomplete on your phone, except it read most of the public code on the internet instead of your last few texts. Given the code so far, it predicts what usually comes next. And what usually comes next, right after "to do this, install," is a package name shaped like the ones it has seen ten thousand times.</p>
+
+<p>Shaped like. That's the trap. The model learned the <em>shape</em> of a real package name, not the fact of it. It knows that Python utilities tend to be lowercase, hyphenated or underscored, often verb-plus-noun, often a tidy contraction of what they do. So when you ask for something niche enough that no perfect library exists, the model does not stop and say "hmm, nothing quite fits." It has no mechanism to feel that gap. It generates a name with all the right features of a real one and hands it to you with the exact same confidence it uses for <code>requests</code> or <code>numpy</code>. To the model, <code>json-safe-parser</code> and <code>pandas</code> are the same kind of object: a plausible next token. One of them just happens to be real.</p>
+
+<p>You have met this behavior before if you have ever managed a very eager junior who would rather give you a confident answer than admit they're not sure. The AI is not lying to you. Lying requires knowing the truth. It genuinely cannot tell the difference between a library that exists and one that merely should.</p>
+
+<img src="/blogs/slopsquatting/plausible-shape.png" alt="An assembly machine building a package box out of familiar-looking parts on a conveyor, the finished box looking identical to the real ones beside it but hollow, glowing cornflower blue in deep space" />
+
+<h2>The wrong answer that shows up on cue</h2>
+
+<p>If the AI invented a fresh, random, never-before-seen name every single time, this would be annoying but mostly harmless. Your install would fail, you'd shrug, you'd go find the real package. A dead end is not a threat.</p>
+
+<p>The problem is that the wrong answer is not random. It repeats.</p>
+
+<p>A group of researchers put actual numbers on this in a 2025 study out of the University of Texas at San Antonio, with a title that gives it away: "We Have a Package for You!" They generated around 576,000 code samples across sixteen different language models and looked at every package those samples told you to install. Nearly one in five did not exist. Not a typo, not a deprecated name. Just conjured. Roughly 205,000 unique hallucinated package names, produced by machines that sounded completely sure of themselves.</p>
+
+<p>The number that should raise the hair on your neck is the next one. They took the hallucinated names and asked the same model the same question again, ten times over. The made-up names were not scattered noise. A large share came back over and over. In their runs, well over half of the hallucinations reappeared across repeated queries, and a big chunk showed up in all ten. The model isn't rolling dice. Ask it the same kind of question and it tends to invent the <em>same</em> package, because it's flowing downhill toward the same plausible-shaped token every time.</p>
+
+<p>Sit with what that means from an attacker's side. They don't have to guess what name your AI will invent. They can just run the popular models themselves, thousands of times, write down every confident non-existent package name that keeps surfacing, and go register them. The AI has effectively published a list of addresses that thousands of developers are about to walk to, and it publishes the same list to everyone.</p>
+
+<img src="/blogs/slopsquatting/predictable-address.png" alt="Many identical glowing paths in deep space all converging from different directions onto a single mailbox where a small trap sits waiting, electric cyan light, one amber warning glow at the destination" />
+
+<h2>This one already has a name</h2>
+
+<p>Security people love naming a new attack, partly for precision and partly because a good name is how a warning travels. This one is called slopsquatting. The "slop" is the AI slop that coins the fake name; the "squatting" is the old move of parking on a name someone else is about to want.</p>
+
+<p>It rhymes on purpose with typosquatting, its older cousin, and the difference between them is the whole story. Typosquatting waits for <em>you</em> to slip. An attacker registers <code>reqeusts</code> or <code>expres</code> and hopes your fingers fumble the real name in a hurry. It relies on human error, one keystroke at a time, which caps how often it lands. Slopsquatting doesn't need you to make a mistake at all. It lets the machine make the mistake for you, in bulk, the same way, on demand. You typed the name perfectly. The name was just wrong before you ever touched the keyboard.</p>
+
+<p>And this is not a thought experiment somebody sketched on a whiteboard. A security researcher named Bar Lanyado ran the live version of it. He noticed one model kept recommending a Python package called <code>huggingface-cli</code> for a task where the real, correct install is something else entirely. The package it kept naming did not exist. So he registered it. An empty, harmless placeholder, just to see who came knocking. Over the following months it pulled thousands of downloads, and install instructions referencing it turned up in the public repositories of large, serious companies who had, somewhere upstream, trusted an answer that pointed at a name nobody real had ever shipped. He was friendly. He proved the point and moved on. The next person to notice the same hallucination does not have to be.</p>
+
+<h2>Why this isn't the attack you already read about</h2>
+
+<p>If you've been paying attention to AI security, you might be filing this next to prompt injection, where a stranger hides instructions in a web page or an email and the AI agent, reading it, quietly does what the stranger said. Same vibe, genuinely different wound, and the difference is worth being precise about.</p>
+
+<p>Prompt injection poisons the agent while it's running. It hijacks the thing that's already executing, mid-task, and bends its behavior. Slopsquatting doesn't touch the running agent at all. It poisons the <em>recommendation</em>. The model does its job honestly, hands you a suggestion made in good faith, and the compromise is sitting at the address the suggestion points to, waiting for you to go fetch it yourself. Nobody hijacked your assistant. Your assistant gave you flawless directions to a house that a stranger moved into last week.</p>
+
+<p>That makes it a supply-chain problem, not a runtime one, and supply-chain problems have a nasty shape. The malicious code doesn't run when the AI answers. It runs later, on your machine, or your CI server, or your teammate's laptop, at <code>install</code> time, with whatever permissions the build has. A package install can execute code the moment it lands. So the blast radius isn't "the AI said a weird thing." It's "the weird thing the AI said became a command you ran with the keys to your build." And because the install worked and your code worked, nothing looks wrong. That's the whole problem with plausible: it doesn't set off the alarm you're listening for.</p>
+
+<img src="/blogs/slopsquatting/poisoned-supply-chain.png" alt="A software build pipeline in deep space with clean glowing crates flowing along it, one crate among them glowing warning-red as it enters the machinery undetected, cornflower blue and cyan accents" />
+
+<h2>What to actually do about it</h2>
+
+<p>The instinct is to reach for a tool, and there's a small one to reach for, but the real fix is a habit.</p>
+
+<p>Read the install line. Actually read it. That first <code>pip install</code> or <code>npm install</code> the AI hands you deserves the same two seconds of suspicion you'd give a link in an email from a bank you don't use. Before you run it, look the package up on the actual registry. Does it exist, who publishes it, when did it appear, how many people depend on it, does the name match a real project or does it just <em>sound</em> like one. A package that was created eleven days ago and is downloaded almost exclusively by other people who also asked an AI is not a dependency. It's a lure. Slopsquatted packages are typically brand new and thin, because they have to be: the name only became valuable the moment the AI started recommending it.</p>
+
+<p>None of that is exotic security work. It's the same reflex a senior developer already runs on a suspicious pull request, aimed one step earlier in the process, at the moment a name gets suggested rather than the moment it breaks. The machine is very good at producing a confident answer shaped exactly like the truth. Your job, the part that doesn't get automated away, is to be the one in the room who checks whether the address is real before knocking on the door.</p>
+
+<p>The AI invented a package that didn't exist. That part is almost innocent. The trouble started the moment it invented the <em>same</em> one for everybody, and somebody was patient enough to be standing there when the whole industry showed up at once.</p>
